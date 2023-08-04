@@ -9,7 +9,7 @@ import useTitle from "../../hooks/useTitle"
 import PulseLoader from "react-spinners/PulseLoader"
 
 function Login() {
-  useTitle("Employee Login")
+  useTitle("Login")
 
   const userRef = useRef()
   const errRef = useRef()

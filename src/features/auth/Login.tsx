@@ -6,13 +6,13 @@ import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import useTitle from "../../hooks/useTitle"
-import PulseLoader from "react-spinners/PulseLoader"
+import { Spinner } from "@chakra-ui/react"
 
 function Login() {
   useTitle("Login")
 
-  const userRef = useRef()
-  const errRef = useRef()
+  const userRef = useRef<HTMLInputElement>(null)
+  const errRef = useRef<HTMLInputElement>(null)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
@@ -24,22 +24,24 @@ function Login() {
   const [login, { isLoading }] = useLoginMutation()
 
   useEffect(() => {
-    userRef.current.focus()
+    if (userRef.current !== null && userRef.current !== undefined) {
+      userRef.current.focus()
+    }
   }, [])
 
   useEffect(() => {
     setErrMsg("")
   }, [username, password])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const { accessToken } = await login({ username, password }).unwrap()
       dispatch(setCredentials({ accessToken }))
       setUsername("")
       setPassword("")
-      navigate("/dash")
-    } catch (err) {
+      navigate("/")
+    } catch (err: any) {
       if (!err.status) {
         setErrMsg("No Server Response")
       } else if (err.status === 400) {
@@ -49,23 +51,36 @@ function Login() {
       } else {
         setErrMsg(err.data?.message)
       }
-      errRef.current.focus()
+      if (errRef.current !== null) {
+        errRef.current.focus()
+      }
     }
   }
 
-  const handleUserInput = (e) => setUsername(e.target.value)
-  const handlePwdInput = (e) => setPassword(e.target.value)
-  const handleToggle = () => setPersist((prev) => !prev)
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUsername(e.target.value)
+  const handlePwdInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value)
+  const handleToggle = () => setPersist((prev: boolean) => !prev)
 
   const errClass = errMsg ? "errmsg" : "offscreen"
 
-  if (isLoading) return <PulseLoader color={"#FFF"} />
+  if (isLoading)
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    )
 
   return (
     <Container maxW="9xl" bg="blue.400" color="white" centerContent>
       <section className="public">
         <header>
-          <h1>Employee Login</h1>
+          <h1>Please Login</h1>
         </header>
         <main className="login">
           <p ref={errRef} className={errClass} aria-live="assertive">

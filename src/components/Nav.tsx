@@ -19,11 +19,11 @@ export default function Nav() {
           <ChakraLink as={ReactRouterLink} to="/" mr={15}>
             Blogs
           </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/about" mr={15}>
-            About
+          <ChakraLink as={ReactRouterLink} to="/auth/login" mr={15}>
+            Login
           </ChakraLink>
-          <ChakraLink as={ReactRouterLink} to="/blogs/create">
-            New Blog
+          <ChakraLink as={ReactRouterLink} to="/auth/sign_up">
+            Sign Up
           </ChakraLink>
         </Center>
       </Flex>

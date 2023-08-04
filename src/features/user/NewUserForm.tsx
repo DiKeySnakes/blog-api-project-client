@@ -46,6 +46,8 @@ const NewUserForm = () => {
     setUsername(e.target.value)
   const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
+  const onConfirmPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setConfirmPassword(e.target.value)
 
   const canSave =
     [validUsername, validPassword, validConfirmPassword].every(Boolean) &&
@@ -117,6 +119,19 @@ const NewUserForm = () => {
           type="password"
           value={password}
           onChange={onPasswordChanged}
+        />
+
+        <label className="form__label" htmlFor="confirmPassword">
+          confirmPassword:{" "}
+          <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+        </label>
+        <input
+          className={`form__input ${validPwdClass}`}
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          value={confirmPassword}
+          onChange={onConfirmPasswordChanged}
         />
       </form>
     </>

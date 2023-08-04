@@ -77,7 +77,7 @@ function Login() {
     )
 
   return (
-    <Container maxW="9xl" bg="blue.400" color="white" centerContent>
+    <Container maxW="9xl" bg="blue.400" color="black" centerContent>
       <section className="public">
         <header>
           <h1>Please Login</h1>

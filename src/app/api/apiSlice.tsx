@@ -12,7 +12,8 @@ import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:4000",
-  credentials: "include",
+  // credentials: "include",
+  credentials: "same-origin",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token
 

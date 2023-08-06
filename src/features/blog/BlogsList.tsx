@@ -13,6 +13,9 @@ import {
   Text,
   Image,
   Box,
+  LinkBox,
+  LinkOverlay,
+  Center,
 } from "@chakra-ui/react"
 
 const NotesList = () => {
@@ -30,56 +33,81 @@ const NotesList = () => {
 
   if (isLoading)
     content = (
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+      <Container maxW="9xl" centerContent>
+        <Box>
+          <Center>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Center>
+        </Box>
+      </Container>
     )
 
   if (isError) {
-    content = <ErrorHandler error={error} />
+    content = (
+      <Container maxW="9xl" centerContent>
+        <Box>
+          <Center>
+            <ErrorHandler error={error} />
+          </Center>
+        </Box>
+      </Container>
+    )
   }
 
   if (isSuccess) {
     const blogsContent =
       blogs?.length &&
       blogs.map((blog) => (
-        <Card
+        <LinkBox
           key={blog._id}
           id={blog._id}
-          direction={{ base: "column", sm: "row" }}
-          overflow="hidden"
-          variant="outline"
+          as="article"
+          maxW="6xl"
+          p="5"
+          borderWidth="1px"
+          borderColor="gray.400"
+          rounded="md"
           mt={10}
           mb={10}
         >
-          <Image
-            objectFit="cover"
-            maxW={{ base: "100%", sm: "200px" }}
-            src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-            alt="Latte"
-          />
+          <Card
+            direction={{ base: "column", sm: "row" }}
+            overflow="hidden"
+            variant="outline"
+          >
+            <Image
+              objectFit="cover"
+              maxW={{ base: "100%", sm: "200px" }}
+              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+              alt="Latte"
+            />
 
-          <Stack>
-            <CardBody>
-              <Heading size="md">{blog.title}</Heading>
+            <Stack>
+              <CardBody>
+                <LinkOverlay href={`/blog/${blog._id}`}>
+                  <Heading size="md">{blog.title}</Heading>
+                </LinkOverlay>
 
-              <Text py="2">{blog.description}</Text>
-            </CardBody>
+                <Text py="2">{blog.description}</Text>
+              </CardBody>
 
-            <CardFooter>
-              <Box mr={2}>
-                <Text as="b">by MariiaN </Text>
-              </Box>
-              <Box ml={2}>
-                <Text>{format(new Date(blog.createdAt), "dd MMM yyyy")}</Text>
-              </Box>
-            </CardFooter>
-          </Stack>
-        </Card>
+              <CardFooter>
+                <Box mr={2}>
+                  <Text as="b">by MariiaN </Text>
+                </Box>
+                <Box ml={2}>
+                  <Text>{format(new Date(blog.createdAt), "dd MMM yyyy")}</Text>
+                </Box>
+              </CardFooter>
+            </Stack>
+          </Card>
+        </LinkBox>
       ))
 
     content = (

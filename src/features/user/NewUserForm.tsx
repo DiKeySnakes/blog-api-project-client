@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useAddNewUserMutation } from "./userApiSlice"
 import { useNavigate } from "react-router-dom"
 import useTitle from "../../hooks/useTitle"
+import ErrorHandler from "../../components/ErrorHandler"
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -62,29 +63,9 @@ const NewUserForm = () => {
   const validUserClass = !validUsername ? "form__input--incomplete" : ""
   const validPwdClass = !validPassword ? "form__input--incomplete" : ""
 
-  const ErrorHandler = () => {
-    if (error) {
-      if ("status" in error) {
-        // you can access all properties of `FetchBaseQueryError` here
-        const errMsg =
-          "error" in error ? error.error : JSON.stringify(error.data)
-
-        return (
-          <div>
-            <div>An error has occurred:</div>
-            <div>{errMsg}</div>
-          </div>
-        )
-      } else {
-        // you can access all properties of `SerializedError` here
-        return <div>{error.message}</div>
-      }
-    }
-  }
-
   const content = (
     <>
-      <ErrorHandler />
+      <ErrorHandler error={error} />
 
       <form className="form" onSubmit={onSaveUserClicked}>
         <div className="form__title-row">

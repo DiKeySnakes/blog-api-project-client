@@ -1,5 +1,6 @@
 import { useGetALLBlogsQuery } from "./blogApiSlice"
 import useTitle from "../../hooks/useTitle"
+import ErrorHandler from "../../components/ErrorHandler"
 import { Spinner } from "@chakra-ui/react"
 import { Container } from "@chakra-ui/react"
 
@@ -27,28 +28,8 @@ const NotesList = () => {
       />
     )
 
-  const ErrorHandler = () => {
-    if (error) {
-      if ("status" in error) {
-        // you can access all properties of `FetchBaseQueryError` here
-        const errMsg =
-          "error" in error ? error.error : JSON.stringify(error.data)
-
-        return (
-          <div>
-            <div>An error has occurred:</div>
-            <div>{errMsg}</div>
-          </div>
-        )
-      } else {
-        // you can access all properties of `SerializedError` here
-        return <div>{error.message}</div>
-      }
-    }
-  }
-
   if (isError) {
-    content = <ErrorHandler />
+    content = <ErrorHandler error={error} />
   }
 
   if (isSuccess) {

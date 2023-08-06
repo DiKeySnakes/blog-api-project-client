@@ -4,15 +4,14 @@ import { Link as ChakraLink } from "@chakra-ui/react"
 
 export default function Nav() {
   return (
-    <Container maxW="9xl" bg="blue.600" color="white">
+    <Container maxW="9xl" bg="gray.200" color="gray.800">
       <Flex>
         <Box>
           <a href="/">
-            <Heading>Blog Ninja</Heading>
+            <Heading mt={2} mb={2}>
+              Blog API Project
+            </Heading>
           </a>
-          <Heading as="h5" size="sm" ml={5}>
-            A Net Ninja Site
-          </Heading>
         </Box>
         <Spacer />
         <Center>

@@ -1,9 +1,13 @@
-import { Container, Center } from "@chakra-ui/react"
+import { Container, Text, Center } from "@chakra-ui/react"
 
 function Footer() {
   return (
-    <Container maxW="9xl" bg="blue.600" color="white">
-      <Center>Copyright &copy; Blog Ninja 2020</Center>
+    <Container maxW="9xl" bg="gray.200" color="gray.800">
+      <Center>
+        <Text mt={3} mb={3}>
+          Copyright &copy; DiKeySnakes 2023
+        </Text>
+      </Center>
     </Container>
   )
 }

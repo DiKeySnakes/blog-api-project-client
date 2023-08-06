@@ -1,6 +1,6 @@
 import { useGetALLBlogsQuery } from "./blogApiSlice"
 import useTitle from "../../hooks/useTitle"
-// import format from "date-fns/format"
+import format from "date-fns/format"
 import ErrorHandler from "../../components/ErrorHandler"
 import {
   Spinner,
@@ -75,7 +75,7 @@ const NotesList = () => {
                 <Text as="b">by MariiaN </Text>
               </Box>
               <Box ml={2}>
-                <Text>{blog.createdAt.toString()}</Text>
+                <Text>{format(new Date(blog.createdAt), "dd MMM yyyy")}</Text>
               </Box>
             </CardFooter>
           </Stack>

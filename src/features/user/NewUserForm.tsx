@@ -3,8 +3,20 @@ import { useAddNewUserMutation } from "./userApiSlice"
 import { useNavigate } from "react-router-dom"
 import useTitle from "../../hooks/useTitle"
 import ErrorHandler from "../../components/ErrorHandler"
+import {
+  Box,
+  Container,
+  Heading,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+} from "@chakra-ui/react"
 
 const USER_REGEX = /^[A-z]{3,20}$/
+const EMAIL_REGEX = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
@@ -16,6 +28,8 @@ const NewUserForm = () => {
 
   const [username, setUsername] = useState("")
   const [validUsername, setValidUsername] = useState(false)
+  const [email, setEmail] = useState("")
+  const [validEmail, setValidEmail] = useState(false)
   const [password, setPassword] = useState("")
   const [validPassword, setValidPassword] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -24,6 +38,10 @@ const NewUserForm = () => {
   useEffect(() => {
     setValidUsername(USER_REGEX.test(username))
   }, [username])
+
+  useEffect(() => {
+    setValidEmail(EMAIL_REGEX.test(email))
+  }, [email])
 
   useEffect(() => {
     setValidPassword(PWD_REGEX.test(password))
@@ -36,6 +54,7 @@ const NewUserForm = () => {
   useEffect(() => {
     if (isSuccess) {
       setUsername("")
+      setEmail("")
       setPassword("")
       setConfirmPassword("")
       navigate("/auth/login")
@@ -44,14 +63,17 @@ const NewUserForm = () => {
 
   const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
+  const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setEmail(e.target.value)
   const onPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
   const onConfirmPasswordChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setConfirmPassword(e.target.value)
 
   const canSave =
-    [validUsername, validPassword, validConfirmPassword].every(Boolean) &&
-    !isLoading
+    [validUsername, validEmail, validPassword, validConfirmPassword].every(
+      Boolean,
+    ) && !isLoading
 
   const onSaveUserClicked = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -60,61 +82,114 @@ const NewUserForm = () => {
     }
   }
 
-  const validUserClass = !validUsername ? "form__input--incomplete" : ""
-  const validPwdClass = !validPassword ? "form__input--incomplete" : ""
+  const isUsernameError = username === ""
+  const isEmailError = email === ""
+  const isPasswordError = password === ""
+  const isConfirmPasswordError = confirmPassword === ""
 
   const content = (
-    <>
+    <Container maxW="9xl" centerContent>
       <ErrorHandler error={error} />
 
-      <form className="form" onSubmit={onSaveUserClicked}>
-        <div className="form__title-row">
-          <h2>New User</h2>
-          <div className="form__action-buttons">
-            <button className="icon-button" title="Save" disabled={!canSave}>
-              Save
-            </button>
-          </div>
-        </div>
-        <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
-          type="text"
-          autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
-        />
+      <Heading color="gray.800" mt={5}>
+        Please Sign Up
+      </Heading>
 
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
+      <form onSubmit={onSaveUserClicked}>
+        <FormControl mt={5} mb={5} isRequired isInvalid={isUsernameError}>
+          <FormLabel>Username</FormLabel>
+          <Input
+            type="text"
+            id="username"
+            name="username"
+            value={username}
+            onChange={onUsernameChanged}
+            placeholder="3-20 letters"
+            autoComplete="off"
+            required
+          />
+          {!isUsernameError ? (
+            <FormHelperText>Enter your username.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Username is required.</FormErrorMessage>
+          )}
+        </FormControl>
 
-        <label className="form__label" htmlFor="confirmPassword">
-          confirmPassword:{" "}
-          <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          value={confirmPassword}
-          onChange={onConfirmPasswordChanged}
-        />
+        <FormControl mt={5} mb={5} isRequired isInvalid={isEmailError}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={onEmailChanged}
+            placeholder="Email@email.com"
+            required
+          />
+          {!isEmailError ? (
+            <FormHelperText>Enter your email.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Email is required.</FormErrorMessage>
+          )}
+        </FormControl>
+
+        <FormControl mt={5} mb={5} isRequired isInvalid={isPasswordError}>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={onPasswordChanged}
+            placeholder="8-20 chars incl. !@#$%"
+            required
+          />
+          {!isPasswordError ? (
+            <FormHelperText>Enter your password.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Password is required.</FormErrorMessage>
+          )}
+        </FormControl>
+
+        <FormControl
+          mt={5}
+          mb={5}
+          isRequired
+          isInvalid={isConfirmPasswordError}
+        >
+          <FormLabel>Confirm Password</FormLabel>
+          <Input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={onConfirmPasswordChanged}
+            placeholder="8-20 chars incl. !@#$%"
+            required
+          />
+          {!isConfirmPasswordError ? (
+            <FormHelperText>Enter your password.</FormHelperText>
+          ) : (
+            <FormErrorMessage>
+              Password confirmation is required.
+            </FormErrorMessage>
+          )}
+        </FormControl>
+
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Button
+            type="submit"
+            disabled={!canSave}
+            colorScheme="teal"
+            size="md"
+            mt={5}
+            mb={5}
+          >
+            Sign Up
+          </Button>
+        </Box>
       </form>
-    </>
+    </Container>
   )
 
   return content

@@ -17,6 +17,8 @@ import {
   FormErrorMessage,
   FormHelperText,
   Input,
+  Button,
+  Checkbox,
 } from "@chakra-ui/react"
 
 function Login() {
@@ -99,111 +101,130 @@ function Login() {
       </Container>
     )
 
-  const isError = username === ""
+  const isUsernameError = username === ""
+  const isEmailError = email === ""
+  const isPasswordError = password === ""
+  const isConfirmPasswordError = confirmPassword === ""
 
   return (
     <Container maxW="9xl" color="black" centerContent>
       <Heading color="gray.800" mt={5}>
         Please Login
       </Heading>
-      <main className="login">
-        <Text ref={errRef} aria-live="assertive">
-          {errMsg}
-        </Text>
 
-        <form className="form" onSubmit={handleSubmit}>
-          <FormControl isRequired isInvalid={isError}>
-            <FormLabel>Username</FormLabel>
-            <Input
-              type="text"
-              id="username"
-              ref={userRef}
-              value={username}
-              onChange={handleUserInput}
-              // placeholder="Username"
-              autoComplete="off"
-              required
-            />
-            {!isError ? (
-              <FormHelperText>Enter your username.</FormHelperText>
-            ) : (
-              <FormErrorMessage>Username is required.</FormErrorMessage>
-            )}
-          </FormControl>
+      <Text ref={errRef} aria-live="assertive">
+        {errMsg}
+      </Text>
 
-          <FormControl isRequired isInvalid={isError}>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              id="email"
-              ref={userRef}
-              value={email}
-              onChange={handleEmailInput}
-              // placeholder="Email"
-              required
-            />
-            {!isError ? (
-              <FormHelperText>Enter your email.</FormHelperText>
-            ) : (
-              <FormErrorMessage>Email is required.</FormErrorMessage>
-            )}
-          </FormControl>
+      <form onSubmit={handleSubmit}>
+        <FormControl mt={5} mb={5} isRequired isInvalid={isUsernameError}>
+          <FormLabel>Username</FormLabel>
+          <Input
+            type="text"
+            id="username"
+            ref={userRef}
+            value={username}
+            onChange={handleUserInput}
+            // placeholder="Username"
+            autoComplete="off"
+            required
+          />
+          {!isUsernameError ? (
+            <FormHelperText>Enter your username.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Username is required.</FormErrorMessage>
+          )}
+        </FormControl>
 
-          <FormControl isRequired isInvalid={isError}>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              id="password"
-              ref={userRef}
-              value={password}
-              onChange={handlePwdInput}
-              // placeholder="Password"
-              required
-            />
-            {!isError ? (
-              <FormHelperText>Enter your password.</FormHelperText>
-            ) : (
-              <FormErrorMessage>Password is required.</FormErrorMessage>
-            )}
-          </FormControl>
+        <FormControl mt={5} mb={5} isRequired isInvalid={isEmailError}>
+          <FormLabel>Email</FormLabel>
+          <Input
+            type="email"
+            id="email"
+            ref={userRef}
+            value={email}
+            onChange={handleEmailInput}
+            // placeholder="Email"
+            required
+          />
+          {!isEmailError ? (
+            <FormHelperText>Enter your email.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Email is required.</FormErrorMessage>
+          )}
+        </FormControl>
 
-          <FormControl isRequired isInvalid={isError}>
-            <FormLabel>Confirm Password</FormLabel>
-            <Input
-              type="password"
-              id="confirmPassword"
-              ref={userRef}
-              value={confirmPassword}
-              onChange={handleConfirmPwdInput}
-              // placeholder="Confirm Password"
-              required
-            />
-            {!isError ? (
-              <FormHelperText>Enter your password.</FormHelperText>
-            ) : (
-              <FormErrorMessage>
-                Password confirmation is required.
-              </FormErrorMessage>
-            )}
-          </FormControl>
+        <FormControl mt={5} mb={5} isRequired isInvalid={isPasswordError}>
+          <FormLabel>Password</FormLabel>
+          <Input
+            type="password"
+            id="password"
+            ref={userRef}
+            value={password}
+            onChange={handlePwdInput}
+            // placeholder="Password"
+            required
+          />
+          {!isPasswordError ? (
+            <FormHelperText>Enter your password.</FormHelperText>
+          ) : (
+            <FormErrorMessage>Password is required.</FormErrorMessage>
+          )}
+        </FormControl>
 
-          <button className="form__submit-button">Sign In</button>
+        <FormControl
+          mt={5}
+          mb={5}
+          isRequired
+          isInvalid={isConfirmPasswordError}
+        >
+          <FormLabel>Confirm Password</FormLabel>
+          <Input
+            type="password"
+            id="confirmPassword"
+            ref={userRef}
+            value={confirmPassword}
+            onChange={handleConfirmPwdInput}
+            // placeholder="Confirm Password"
+            required
+          />
+          {!isConfirmPasswordError ? (
+            <FormHelperText>Enter your password.</FormHelperText>
+          ) : (
+            <FormErrorMessage>
+              Password confirmation is required.
+            </FormErrorMessage>
+          )}
+        </FormControl>
 
-          <label htmlFor="persist" className="form__persist">
-            <input
-              type="checkbox"
-              className="form__checkbox"
-              id="persist"
-              onChange={handleToggle}
-              checked={persist}
-            />
-            Trust This Device
-          </label>
-        </form>
-      </main>
-      <footer>
-        <Link to="/">Back to Home</Link>
-      </footer>
+        <Button
+          type="submit"
+          colorScheme="teal"
+          size="md"
+          mr={10}
+          mt={5}
+          mb={5}
+        >
+          Sign In
+        </Button>
+
+        <Checkbox
+          colorScheme="teal"
+          id="persist"
+          onChange={handleToggle}
+          checked={persist}
+          ml={10}
+          mt={5}
+          mb={5}
+        >
+          Trust This Device
+        </Checkbox>
+      </form>
+      <Link to="/">
+        <Box>
+          <Text>Back to Home</Text>
+        </Box>
+      </Link>
     </Container>
   )
 }

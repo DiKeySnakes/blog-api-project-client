@@ -18,7 +18,7 @@ import {
   Center,
 } from "@chakra-ui/react"
 
-const NotesList = () => {
+const BlogsList = () => {
   useTitle("Blogs List")
 
   const {
@@ -31,7 +31,7 @@ const NotesList = () => {
 
   let content
 
-  if (isLoading)
+  if (isLoading) {
     content = (
       <Container maxW="9xl" centerContent>
         <Box>
@@ -47,6 +47,7 @@ const NotesList = () => {
         </Box>
       </Container>
     )
+  }
 
   if (isError) {
     content = (
@@ -124,4 +125,4 @@ const NotesList = () => {
 
   return content
 }
-export default NotesList
+export default BlogsList

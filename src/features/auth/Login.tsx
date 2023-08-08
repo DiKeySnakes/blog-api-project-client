@@ -27,9 +27,7 @@ function Login() {
   const userRef = useRef<HTMLInputElement>(null)
   const errRef = useRef<HTMLInputElement>(null)
   const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
   const [errMsg, setErrMsg] = useState("")
   const [persist, setPersist] = usePersist()
 
@@ -74,15 +72,9 @@ function Login() {
 
   const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
-  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setEmail(e.target.value)
   const handlePwdInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setPassword(e.target.value)
-  const handleConfirmPwdInput = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setConfirmPassword(e.target.value)
   const handleToggle = () => setPersist((prev: boolean) => !prev)
-
-  // const errClass = errMsg ? "errmsg" : "offscreen"
 
   if (isLoading)
     return (
@@ -102,9 +94,7 @@ function Login() {
     )
 
   const isUsernameError = username === ""
-  const isEmailError = email === ""
   const isPasswordError = password === ""
-  const isConfirmPasswordError = confirmPassword === ""
 
   return (
     <Container maxW="9xl" color="black" centerContent>
@@ -136,24 +126,6 @@ function Login() {
           )}
         </FormControl>
 
-        <FormControl mt={5} mb={5} isRequired isInvalid={isEmailError}>
-          <FormLabel>Email</FormLabel>
-          <Input
-            type="email"
-            id="email"
-            ref={userRef}
-            value={email}
-            onChange={handleEmailInput}
-            // placeholder="Email"
-            required
-          />
-          {!isEmailError ? (
-            <FormHelperText>Enter your email.</FormHelperText>
-          ) : (
-            <FormErrorMessage>Email is required.</FormErrorMessage>
-          )}
-        </FormControl>
-
         <FormControl mt={5} mb={5} isRequired isInvalid={isPasswordError}>
           <FormLabel>Password</FormLabel>
           <Input
@@ -169,31 +141,6 @@ function Login() {
             <FormHelperText>Enter your password.</FormHelperText>
           ) : (
             <FormErrorMessage>Password is required.</FormErrorMessage>
-          )}
-        </FormControl>
-
-        <FormControl
-          mt={5}
-          mb={5}
-          isRequired
-          isInvalid={isConfirmPasswordError}
-        >
-          <FormLabel>Confirm Password</FormLabel>
-          <Input
-            type="password"
-            id="confirmPassword"
-            ref={userRef}
-            value={confirmPassword}
-            onChange={handleConfirmPwdInput}
-            // placeholder="Confirm Password"
-            required
-          />
-          {!isConfirmPasswordError ? (
-            <FormHelperText>Enter your password.</FormHelperText>
-          ) : (
-            <FormErrorMessage>
-              Password confirmation is required.
-            </FormErrorMessage>
           )}
         </FormControl>
 

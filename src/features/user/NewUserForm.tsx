@@ -22,7 +22,8 @@ const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 const NewUserForm = () => {
   useTitle("Sign Up")
 
-  const [addNewUser, { isLoading, isSuccess, error }] = useAddNewUserMutation()
+  const [addNewUser, { isLoading, isError, isSuccess, error }] =
+    useAddNewUserMutation()
 
   const navigate = useNavigate()
 
@@ -52,14 +53,18 @@ const NewUserForm = () => {
   }, [confirmPassword])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && !isError) {
       setUsername("")
       setEmail("")
       setPassword("")
       setConfirmPassword("")
       navigate("/auth/login")
     }
-  }, [isSuccess, navigate])
+  }, [isSuccess, isError, navigate])
+
+  // useEffect(() => {
+  //   if (data) console.log(data)
+  // }, [data])
 
   const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
@@ -78,7 +83,7 @@ const NewUserForm = () => {
   const onSaveUserClicked = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (canSave) {
-      await addNewUser({ username, password, confirmPassword })
+      await addNewUser({ username, email, password, confirmPassword })
     }
   }
 

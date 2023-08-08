@@ -20,8 +20,11 @@ export const userApiSlice = apiSlice.injectEndpoints({
         body: {
           ...initialUserData,
         },
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        },
       }),
-      // invalidatesTags: [{ type: "User", id: "LIST" }],
+      invalidatesTags: [{ type: "User", id: "LIST" }],
     }),
   }),
 })

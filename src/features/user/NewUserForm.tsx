@@ -185,7 +185,7 @@ const NewUserForm = () => {
           <Button
             type="submit"
             disabled={!canSave}
-            colorScheme="teal"
+            colorScheme={canSave ? "teal" : "red"}
             size="md"
             mt={5}
             mb={5}

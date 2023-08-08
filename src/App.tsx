@@ -4,6 +4,7 @@ import BlogsList from "./features/blog/BlogsList"
 import Blog from "./features/blog/Blog"
 import Login from "./features/auth/Login"
 import NewUserForm from "./features/user/NewUserForm"
+import PersistLogin from "./features/auth/PersistLogin"
 
 function App() {
   return (
@@ -11,9 +12,12 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* public routes */}
         <Route index element={<BlogsList />} />
-        <Route path="/blog/:id" element={<Blog />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/sign_up" element={<NewUserForm />} />
+        <Route element={<PersistLogin />}>
+          <Route path="/blog/:id" element={<Blog />} />
+        </Route>{" "}
+        {/* End Protected Routes */}
       </Route>
     </Routes>
   )

@@ -4,7 +4,7 @@ import { useRefreshMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { useAppSelector } from "../../app/hooks"
 import { selectCurrentToken } from "./authSlice"
-import { Spinner, Box } from "@chakra-ui/react"
+import { Spinner, Box, Container, Center, Text } from "@chakra-ui/react"
 import ErrorHandler from "../../components/ErrorHandler"
 
 const PersistLogin = () => {
@@ -51,22 +51,33 @@ const PersistLogin = () => {
     //persist: yes, token: no
     console.log("loading")
     content = (
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
+      <Container maxW="9xl" centerContent>
+        <Box>
+          <Center>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            />
+          </Center>
+        </Box>
+      </Container>
     )
   } else if (isError) {
     //persist: yes, token: no
     console.log("error")
     content = (
-      <Box>
-        <ErrorHandler error={error} />
-        <Link to="/auth/login">Please login again</Link>.
-      </Box>
+      <Container maxW="9xl" mt={5} centerContent>
+        <Box>
+          <ErrorHandler error={error} />
+          <Link to="/auth/login">
+            <Text as="b">Please login again</Text>
+          </Link>
+          .
+        </Box>
+      </Container>
     )
   } else if (isSuccess && trueSuccess) {
     //persist: yes, token: yes

@@ -4,6 +4,7 @@ import BlogsList from "./features/blog/BlogsList"
 import Blog from "./features/blog/Blog"
 import Login from "./features/auth/Login"
 import NewUserForm from "./features/user/NewUserForm"
+import NewCommentForm from "./features/comment/NewCommentForm"
 import PersistLogin from "./features/auth/PersistLogin"
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/auth/sign_up" element={<NewUserForm />} />
         <Route element={<PersistLogin />}>
           <Route path="/blog/:id" element={<Blog />} />
+          <Route path="/comment/create/:id" element={<NewCommentForm />} />
         </Route>{" "}
         {/* End Protected Routes */}
       </Route>

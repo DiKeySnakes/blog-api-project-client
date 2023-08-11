@@ -66,13 +66,9 @@ export default function Nav() {
 
           <ChakraLink
             as={ReactRouterLink}
-            to={username ? `/comment/create/${id}` : "/auth/sign_up"}
+            to={id ? `/comment/create/${id}` : "/auth/sign_up"}
           >
-            {username ? (
-              <Text as="b">Comment</Text>
-            ) : (
-              <Text as="b">Sign Up</Text>
-            )}
+            {id ? <Text as="b">Comment</Text> : <Text as="b">Sign Up</Text>}
           </ChakraLink>
         </Center>
       </Flex>

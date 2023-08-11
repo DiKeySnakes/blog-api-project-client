@@ -6,6 +6,8 @@ import Login from "./features/auth/Login"
 import NewUserForm from "./features/user/NewUserForm"
 import NewCommentForm from "./features/comment/NewCommentForm"
 import PersistLogin from "./features/auth/PersistLogin"
+import RequireAuth from "./features/auth/RequireAuth"
+import { ROLES } from "./config/roles"
 
 function App() {
   return (
@@ -13,11 +15,15 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* public routes */}
         <Route index element={<BlogsList />} />
+        <Route path="/blog/:id" element={<Blog />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/sign_up" element={<NewUserForm />} />
         <Route element={<PersistLogin />}>
-          <Route path="/blog/:id" element={<Blog />} />
-          <Route path="/comment/create/:id" element={<NewCommentForm />} />
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route path="/comment/create/:id" element={<NewCommentForm />} />
+          </Route>
         </Route>{" "}
         {/* End Protected Routes */}
       </Route>

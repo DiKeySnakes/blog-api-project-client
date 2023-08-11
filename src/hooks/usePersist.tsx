@@ -16,6 +16,9 @@ const usePersist = () => {
     localStorage.setItem("persist", JSON.stringify(persist))
   }, [persist])
 
+  console.log("MyMyUsePersist", persist)
+
   return [persist, setPersist]
 }
+
 export default usePersist

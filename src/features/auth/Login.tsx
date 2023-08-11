@@ -159,7 +159,7 @@ function Login() {
           colorScheme="teal"
           id="persist"
           onChange={handleToggle}
-          checked={persist}
+          isChecked={persist}
           ml={10}
           mt={5}
           mb={5}

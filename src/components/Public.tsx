@@ -1,25 +1,41 @@
-import { Link } from "react-router-dom"
-import { Container, Box, Heading, Center } from "@chakra-ui/react"
+import { Container, Box, Heading, Center, Flex, Spacer } from "@chakra-ui/react"
+import { Link as ReactRouterLink } from "react-router-dom"
+import { Link as ChakraLink } from "@chakra-ui/react"
 
 const Public = () => {
   const content = (
-    <Container maxW="9xl" bg="blue.400" color="white" centerContent>
-      <Box padding="4" bg="blue.400" color="white" maxW="md">
-        <Center>
-          <Heading as="h1" size="2xl">
-            All Blogs
-          </Heading>
+    <Container maxW="9xl" centerContent>
+      <Center>
+        <Heading as="h1" size="2xl" mt={5} mb={5} color="gray.700">
+          Welcome to Blog Api Project
+        </Heading>
+      </Center>
+      <Box>
+        <Heading as="h2" size="xl" mt={5} mb={5} color="gray.700">
+          Please login or sign up
+        </Heading>
+        <Flex mt={5} mb={5}>
+          <ChakraLink as={ReactRouterLink} to="/auth/login" mr={15}>
+            <Heading as="h3" size="lg" color="orange">
+              Login
+            </Heading>
+          </ChakraLink>
+
+          <Spacer />
+
+          <ChakraLink as={ReactRouterLink} to="/auth/sign_up" mr={15}>
+            <Heading as="h3" size="lg" color="orange">
+              Sign Up
+            </Heading>
+          </ChakraLink>
+        </Flex>
+        <Center mb={5}>
+          <ChakraLink as={ReactRouterLink} to="/blog/blogs_all" mr={15}>
+            <Heading as="h3" size="lg" color="teal">
+              All Blogs
+            </Heading>
+          </ChakraLink>
         </Center>
-        <section>
-          <header>
-            <h1>
-              Welcome to <span>Blog Api Project!</span>
-            </h1>
-          </header>
-          <footer>
-            <Link to="/login">Employee Login</Link>
-          </footer>
-        </section>
       </Box>
     </Container>
   )

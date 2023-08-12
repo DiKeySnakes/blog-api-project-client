@@ -30,7 +30,7 @@ export default function Nav() {
     >
       <Flex>
         <Box>
-          <a href="/">
+          <a href="/blog/blogs_all">
             <Heading mt={2} mb={2}>
               Blog API Project
             </Heading>

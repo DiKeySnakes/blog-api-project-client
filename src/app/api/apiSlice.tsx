@@ -11,7 +11,7 @@ import { RootState } from "../store"
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes"
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://blog-api-project-client.vercel.app",
+  baseUrl: "https://blog-api-project-server-zzbb.vercel.app",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token

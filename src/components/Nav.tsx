@@ -1,7 +1,5 @@
-import { useEffect } from "react"
 import useAuth from "../hooks/useAuth"
-import { useSendLogoutMutation } from "../features/auth/authApiSlice"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import {
   Container,
   Box,
@@ -10,7 +8,6 @@ import {
   Flex,
   Center,
   Text,
-  Button,
 } from "@chakra-ui/react"
 import { Link as ReactRouterLink } from "react-router-dom"
 import { Link as ChakraLink } from "@chakra-ui/react"
@@ -20,15 +17,6 @@ export default function Nav() {
 
   const params = useParams()
   const id = params.id
-
-  const [sendLogout, { isLoading, isSuccess, isError, error }] =
-    useSendLogoutMutation()
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (isSuccess) navigate("/")
-  }, [isSuccess, navigate])
 
   return (
     <Container
@@ -61,8 +49,6 @@ export default function Nav() {
           >
             {username ? <Text as="b">Logout</Text> : <Text as="b">Login</Text>}
           </ChakraLink>
-
-          <Button onClick={sendLogout}>LOGOUT</Button>
 
           <ChakraLink
             as={ReactRouterLink}

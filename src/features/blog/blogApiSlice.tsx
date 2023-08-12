@@ -2,6 +2,7 @@ import { apiSlice } from "../../app/api/apiSlice"
 
 interface IBlog {
   _id: string
+  image: string
   title: string
   description: string
   content: string

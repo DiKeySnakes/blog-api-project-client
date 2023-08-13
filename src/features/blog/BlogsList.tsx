@@ -1,5 +1,6 @@
 import { useGetALLBlogsQuery } from "./blogApiSlice"
 import useTitle from "../../hooks/useTitle"
+import { Link as ReactRouterLink } from "react-router-dom"
 import format from "date-fns/format"
 import ErrorHandler from "../../components/ErrorHandler"
 import {
@@ -91,7 +92,7 @@ const BlogsList = () => {
 
             <Stack>
               <CardBody>
-                <LinkOverlay href={`/blog/${blog._id}`}>
+                <LinkOverlay as={ReactRouterLink} href={`/blog/${blog._id}`}>
                   <Heading size="md">{blog.title}</Heading>
                 </LinkOverlay>
 

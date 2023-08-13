@@ -14,8 +14,6 @@ import {
   Text,
   Image,
   Box,
-  LinkBox,
-  // LinkOverlay,
   Center,
 } from "@chakra-ui/react"
 
@@ -66,7 +64,7 @@ const BlogsList = () => {
     const blogsContent =
       blogs?.length &&
       blogs.map((blog) => (
-        <LinkBox
+        <Box
           key={blog._id}
           id={blog._id}
           as="article"
@@ -109,7 +107,7 @@ const BlogsList = () => {
               </CardFooter>
             </Stack>
           </Card>
-        </LinkBox>
+        </Box>
       ))
 
     content = (

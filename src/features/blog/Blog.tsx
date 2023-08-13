@@ -4,7 +4,6 @@ import useTitle from "../../hooks/useTitle"
 import format from "date-fns/format"
 import ErrorHandler from "../../components/ErrorHandler"
 import { skipToken } from "@reduxjs/toolkit/dist/query"
-import { Link as ReactRouterLink } from "react-router-dom"
 import {
   Spinner,
   Container,
@@ -16,8 +15,6 @@ import {
   Text,
   Image,
   Box,
-  LinkBox,
-  LinkOverlay,
   Center,
 } from "@chakra-ui/react"
 
@@ -64,7 +61,7 @@ function Blog({ id }: { id?: string }) {
 
   if (isSuccess) {
     const blogContent = (
-      <LinkBox
+      <Box
         key={data.blog._id}
         id={data.blog._id}
         as="article"
@@ -91,9 +88,7 @@ function Blog({ id }: { id?: string }) {
             />
 
             <CardBody>
-              <LinkOverlay as={ReactRouterLink} href={`/blog/${data.blog._id}`}>
-                <Text py="2">{data.blog.content}</Text>
-              </LinkOverlay>
+              <Text py="2">{data.blog.content}</Text>
             </CardBody>
 
             <CardFooter>
@@ -108,13 +103,13 @@ function Blog({ id }: { id?: string }) {
             </CardFooter>
           </Stack>
         </Card>
-      </LinkBox>
+      </Box>
     )
 
     const commentsContent =
       data.comments?.length &&
       data.comments.map((comment) => (
-        <LinkBox
+        <Box
           key={comment._id}
           id={comment._id}
           as="article"
@@ -133,9 +128,7 @@ function Blog({ id }: { id?: string }) {
           >
             <Stack>
               <CardBody>
-                <LinkOverlay href={`/comment/${comment._id}`}>
-                  <Text py="2">{comment.content}</Text>
-                </LinkOverlay>
+                <Text py="2">{comment.content}</Text>
               </CardBody>
 
               <CardFooter>
@@ -150,7 +143,7 @@ function Blog({ id }: { id?: string }) {
               </CardFooter>
             </Stack>
           </Card>
-        </LinkBox>
+        </Box>
       ))
 
     content = (

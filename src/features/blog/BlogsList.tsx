@@ -15,7 +15,7 @@ import {
   Image,
   Box,
   LinkBox,
-  LinkOverlay,
+  // LinkOverlay,
   Center,
 } from "@chakra-ui/react"
 
@@ -92,9 +92,9 @@ const BlogsList = () => {
 
             <Stack>
               <CardBody>
-                <LinkOverlay as={ReactRouterLink} href={`/blog/${blog._id}`}>
+                <ReactRouterLink to={`/blog/${blog._id}`}>
                   <Heading size="md">{blog.title}</Heading>
-                </LinkOverlay>
+                </ReactRouterLink>
 
                 <Text py="2">{blog.description}</Text>
               </CardBody>

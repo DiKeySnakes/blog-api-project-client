@@ -4,6 +4,7 @@ import useTitle from "../../hooks/useTitle"
 import format from "date-fns/format"
 import ErrorHandler from "../../components/ErrorHandler"
 import { skipToken } from "@reduxjs/toolkit/dist/query"
+import { Link as ReactRouterLink } from "react-router-dom"
 import {
   Spinner,
   Container,
@@ -90,7 +91,7 @@ function Blog({ id }: { id?: string }) {
             />
 
             <CardBody>
-              <LinkOverlay href={`/blog/${data.blog._id}`}>
+              <LinkOverlay as={ReactRouterLink} href={`/blog/${data.blog._id}`}>
                 <Text py="2">{data.blog.content}</Text>
               </LinkOverlay>
             </CardBody>

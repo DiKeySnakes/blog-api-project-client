@@ -52,7 +52,7 @@ const PersistLogin = () => {
     console.log("loading")
     content = (
       <Container maxW="9xl" centerContent>
-        <Box>
+        <Box mt={5}>
           <Center>
             <Spinner
               thickness="4px"

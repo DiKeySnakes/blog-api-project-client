@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../app/hooks"
 import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
+import { Link as ReactRouterLink } from "react-router-dom"
+import { Link as ChakraLink } from "@chakra-ui/react"
 import usePersist from "../../hooks/usePersist"
 import useTitle from "../../hooks/useTitle"
 import {
@@ -149,6 +151,7 @@ function Login() {
           colorScheme="teal"
           size="md"
           mr={10}
+          ml={10}
           mt={5}
           mb={5}
         >
@@ -160,6 +163,7 @@ function Login() {
           id="persist"
           onChange={handleToggle}
           isChecked={persist}
+          mr={10}
           ml={10}
           mt={5}
           mb={5}
@@ -167,11 +171,11 @@ function Login() {
           Trust This Device
         </Checkbox>
       </form>
-      <Link to="/">
-        <Box>
-          <Text>Back to Home</Text>
+      <ChakraLink as={ReactRouterLink} to="/">
+        <Box mt={10} mb={10}>
+          <Text as="b">Back to Welcome page</Text>
         </Box>
-      </Link>
+      </ChakraLink>
     </Container>
   )
 }

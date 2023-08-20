@@ -65,7 +65,13 @@ const NewCommentForm = () => {
       </Heading>
 
       <form onSubmit={onSaveCommentClicked}>
-        <FormControl mt={5} mb={5} isRequired isInvalid={isContentError}>
+        <FormControl
+          mt={5}
+          mb={5}
+          w="80vw"
+          isRequired
+          isInvalid={isContentError}
+        >
           <FormLabel>Text</FormLabel>
           <Input
             type="text"

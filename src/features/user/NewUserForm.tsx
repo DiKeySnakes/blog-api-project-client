@@ -62,10 +62,6 @@ const NewUserForm = () => {
     }
   }, [isSuccess, isError, navigate])
 
-  // useEffect(() => {
-  //   if (data) console.log(data)
-  // }, [data])
-
   const onUsernameChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
     setUsername(e.target.value)
   const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -176,7 +172,7 @@ const NewUserForm = () => {
             <FormHelperText>Enter your password.</FormHelperText>
           ) : (
             <FormErrorMessage>
-              Password confirmation is required.
+              Password confirmation is required. Your passwords must match.
             </FormErrorMessage>
           )}
         </FormControl>

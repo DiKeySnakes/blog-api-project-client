@@ -48,7 +48,9 @@ const Logout = () => {
       </Heading>
 
       <Box display="flex" alignItems="center" justifyContent="center">
-        <Button onClick={sendLogout}>LOGOUT</Button>
+        <Button colorScheme="red" onClick={sendLogout}>
+          LOGOUT
+        </Button>
       </Box>
     </Container>
   )
